@@ -20,21 +20,33 @@ Step I.
 2. There are three part of this task. The outcomes are YDF, XDF, and subjectDF.
 
 trainYData <- read.table("./data/train/y_train.txt",header=F, sep="\t")
+
 testYData <- read.table("./data/test/y_test.txt",header=F, sep="\t")
+
 trainYDf <- data.frame(X5 = trainYData$V1)
+
 testYDf <- data.frame(X5 = testYData$V1)
+
 YDF <- rbind(trainYDf, testYDf)
 
 trainXData <- read.table("./data/train/X_train.txt", header=F, sep="\t")
+
 testXData <- read.table("./data/test/X_test.txt",header=F, sep="\t")
+
 trainXDf <- data.frame(V1 = trainXData$V1)
+
 testXDf <- data.frame(V1 = testXData$V1)
+
 XDF <- rbind(trainXDf, testXDf)
 
 trainSubjectData <- read.table("./data/train/subject_train.txt",header=F, sep="\t")
+
 testSubjectData <- read.table("./data/test/subject_test.txt",header=F, sep="\t")
+
 trainSubjectDf <- data.frame(Subject = trainSubjectData$V1)
+
 testSubjectDf <- data.frame(Subject = testSubjectData$V1)
+
 subjectDF <- rbind(trainSubjectDf, testSubjectDf)
 
 Step II.
@@ -46,13 +58,20 @@ Step II.
 3. Combine the clen data set to a Data Frame as DF.
 
 XDfSplit <- strsplit(as.character(XDF$V1), " ")
+
 dfX <- do.call(rbind, XDfSplit)
+
 k <- nrow(dfX)
+
 XDfSplit2 = NULL
+
 for (i in 1:k) {
+
   line <- XDfSplit[[i]]
-	XDfSplit2[[i]] <- line[!(line=="")]
+  
+  XDfSplit2[[i]] <- line[!(line=="")]
 }
+
 DF <- do.call(rbind, XDfSplit2)
 
 Step III.
@@ -82,18 +101,29 @@ Step III.
    h. remove extra ")" at the line end;
    
 features <- read.table("./data/features.txt", header=F, sep=" ")
+
 featureName <- features$V2
+
 cMean <- grep("mean()", featureName)
+
 cStd <- grep("std()", featureName)
+
 cMeanStd <- c(cMean, cStd)
 
 colName <- gsub("tBody","timeBody", featureName,)
+
 colName <- gsub("tGravity","timeGravity", colName,)
+
 colName <- gsub("fBody","freqBody", colName,)
+
 colName <- gsub("Acc","Acce", colName,)
+
 colName <- gsub(",", "_", colName,)
+
 colName <- gsub("\\()", "", colName,)
+
 colName <- gsub("\\(", "-", colName,)
+
 colName <- gsub(")", "", colName,)
 
 Step IV.
@@ -105,12 +135,18 @@ Step IV.
 3. Setup the column name for activityDF.
 
 activityName <- c("Walking","WalkingUpstairs","WalkingDownstairs","Sitting","Standing","Laying")
+
 m <- nrow(YDF)
+
 activity <- NULL
+
 for(i in 1:m) {
+
 	activity[i] = activityName[as.numeric(YDF[i,])]
 }
+
 activityDF <- cbind(YDF, activity)
+
 colnames(activityDF)[2]<-c("ActivityName")
 
 Step V.
@@ -122,12 +158,17 @@ Step V.
 3. Get the mean data set by using column ID cMean ad meanDF.
 
 dfData <- as.data.frame(DF)
+
 m <- ncol(dfData)
+
 for(i in 1:m){
+
 	colnames(dfData)[i] <- c(colName[i])
+	
 }
 
 meanStdDF <- dfData[,cMeanStd]
+
 meanDF <- dfData[, cMean]
 
 Step VI.
@@ -137,6 +178,7 @@ Step VI.
 2. Write the new data frame to a file as SubActivityAverage.txt.
 
 newDF <- cbind(subjectDF, activityDF, meanDF)
+
 write.table(newDF, file = "SubActivityAverage.txt", 
 append = FALSE, sep = " ", na = "NA", dec = ".", 
 row.names = FALSE, col.names = TRUE)
