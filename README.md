@@ -23,9 +23,9 @@ trainYData <- read.table("./data/train/y_train.txt",header=F, sep="\t")
 
 testYData <- read.table("./data/test/y_test.txt",header=F, sep="\t")
 
-trainYDf <- data.frame(X5 = trainYData$V1)
+trainYDf <- data.frame(Activity = trainYData$V1)
 
-testYDf <- data.frame(X5 = testYData$V1)
+testYDf <- data.frame(Activity = testYData$V1)
 
 YDF <- rbind(trainYDf, testYDf)
 
