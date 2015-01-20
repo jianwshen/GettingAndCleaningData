@@ -17,7 +17,7 @@ Step I.
 
 1. Combine training dataset and testing dataset to one dataset;
 
-2. There are three part of this task. The outcomes are YDF, XDF, and subjectDF.
+2. There are three parts of this task. The three data frames are YDF, XDF, and subjectDF.
 
 trainYData <- read.table("./data/train/y_train.txt",header=F, sep="\t")
 
@@ -55,7 +55,7 @@ Step II.
 
 2. Remove empty value "" from each row. This is the key part of this project;
 
-3. Combine the clen data set to a Data Frame as DF.
+3. Combine the clean data set to a Data Frame as DF.
 
 XDfSplit <- strsplit(as.character(XDF$V1), " ")
 
@@ -78,9 +78,9 @@ Step III.
 
 1. Input features.txt data for column names;
 
-2. Get mean coloum ID list as cMean;
+2. Get mean coloum ID list by "mean()" as cMean;
 
-3. Get standard deviation column ID list as cStd
+3. Get standard deviation column ID list by "std()" as cStd
 
 4. Make column names descriptive:
 
@@ -130,9 +130,9 @@ Step IV.
 
 1. Create an activity name list for the six activities;
 
-2. Create a new dataset for activity with activity name as activityDF;
+2. Create a new data frame for activity with activity name as activityDF;
 
-3. Setup the column name for activityDF.
+3. Setup the correct column name for activityDF.
 
 activityName <- c("Walking","WalkingUpstairs","WalkingDownstairs","Sitting","Standing","Laying")
 
@@ -151,11 +151,11 @@ colnames(activityDF)[2]<-c("ActivityName")
 
 Step V.
 
-1. Get the data frame from X with the descriptive column names as dfData;
+1. Get the data frame from X with the descriptive column names. The data frame is called dfData;
 
-2. Get the mean and standard deviation data set by using column ID cMeanStd as meanStdDF;
+2. Get the mean and standard deviation data frame by using column ID cMeanStd. The data frame is called meanStdDF;
 
-3. Get the mean data set by using column ID cMean ad meanDF.
+3. Get the mean data frame by using column ID cMean. The data frame is called meanDF.
 
 dfData <- as.data.frame(DF)
 
@@ -175,10 +175,15 @@ Step VI.
 
 1. Create a new data frame from subjectDF, activityDF, and meanDF with descriptive column names;
 
-2. Write the new data frame to a file as SubActivityAverage.txt.
+2. Write the new data frame to a file. The file name is SubActivityAverage.txt.
 
 newDF <- cbind(subjectDF, activityDF, meanDF)
 
 write.table(newDF, file = "SubActivityAverage.txt", 
 append = FALSE, sep = " ", na = "NA", dec = ".", 
 row.names = FALSE, col.names = TRUE)
+
+
+Notes: 
+1. The R program can be downloaded from the github. The file name is run_analysis.R.
+2. In order to run the R program, a sub folder called "data" is needed to keep all data files from the project zip file.
