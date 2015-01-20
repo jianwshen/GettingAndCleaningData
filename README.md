@@ -13,7 +13,7 @@ for the following purpose.
 *	Appropriately labels the data set with descriptive variable names.
 *	From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-Step I.
+###Step I.
 
 1. Combine training dataset and testing dataset to one dataset;
 
@@ -49,7 +49,7 @@ testSubjectDf <- data.frame(Subject = testSubjectData$V1)
 
 subjectDF <- rbind(trainSubjectDf, testSubjectDf)
 
-Step II.
+###Step II.
 
 1. First is to split XDF by space " " for each row;
 
@@ -74,7 +74,7 @@ for (i in 1:k) {
 
 DF <- do.call(rbind, XDfSplit2)
 
-Step III.
+###Step III.
 
 1. Input features.txt data for column names;
 
@@ -126,7 +126,7 @@ colName <- gsub("\\(", "-", colName,)
 
 colName <- gsub(")", "", colName,)
 
-Step IV.
+###Step IV.
 
 1. Create an activity name list for the six activities;
 
@@ -149,7 +149,7 @@ activityDF <- cbind(YDF, activity)
 
 colnames(activityDF)[2]<-c("ActivityName")
 
-Step V.
+###Step V.
 
 1. Get the data frame from X with the descriptive column names. The data frame is called dfData;
 
@@ -171,7 +171,7 @@ meanStdDF <- dfData[,cMeanStd]
 
 meanDF <- dfData[, cMean]
 
-Step VI.
+###Step VI.
 
 1. Create a new data frame from subjectDF, activityDF, and meanDF with descriptive column names;
 
@@ -184,6 +184,8 @@ append = FALSE, sep = " ", na = "NA", dec = ".",
 row.names = FALSE, col.names = TRUE)
 
 
-Notes: 
+###Notes: 
+
 1. The R program can be downloaded from the github. The file name is run_analysis.R.
+
 2. In order to run the R program, a sub folder called "data" is needed to keep all data files from the project zip file.
